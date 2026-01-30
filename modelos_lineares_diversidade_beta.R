@@ -151,3 +151,34 @@ cor_df <- cor_multipla |>
   dplyr::rename("Spearman Correlation Index" = value)
 
 cor_df
+
+### Gráfico ----
+
+cor_df |>
+  ggplot(aes(Var1, Var2,
+             fill = `Spearman Correlation Index`,
+             label = `Spearman Correlation Index`)) +
+  geom_tile(color = "black", linewidth = 0.5) +
+  geom_text(color = "black", size = 7.5, fontface = "bold") +
+  labs(x = NULL,
+       y = NULL) +
+  scale_fill_viridis_c(guide = guide_colorbar(title.position = "top",
+                                              title.hjust = 0.5,
+                                              barwidth = 30,
+                                              frame.colour = "black",
+                                              ticks.colour = "black",
+                                              ticks.linewidth = 1),
+                       limits = c(-1, 1)) +
+  coord_equal() +
+  theme_bw() +
+  theme(axis.text = element_text(color = "black", size = 20),
+        axis.text.x = element_text(angle = 90, hjust = 1),
+        legend.text = element_text(color = "black", size = 20),
+        legend.title = element_text(color = "black", size = 20),
+        legend.position = "bottom",
+        strip.text = element_text(color = "black", size = 20),
+        panel.background = element_rect(color = "black", linewidth = 1)) +
+  ggview::canvas(height = 10, width = 12)
+
+ggsave(filename = "multicolinearidade.png",
+       height = 10, width = 12)
