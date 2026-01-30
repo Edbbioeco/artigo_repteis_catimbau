@@ -6,13 +6,13 @@ library(tidyverse)
 
 library(vegan)
 
+library(reshape2)
+
+library(glmmTMB)
+
 library(janitor)
 
 library(DHARMa)
-
-library(performance)
-
-library(ggbeeswarm)
 
 library(ggtext)
 
@@ -57,3 +57,9 @@ var_macro
 var_macro |> dplyr::glimpse()
 
 # Dissimilaridades ----
+
+## Dissimilaridade de composição ----
+
+comp |>
+  tibble::column_to_rownames(var = "Parcelas") |>
+  vegan::vegdist()
