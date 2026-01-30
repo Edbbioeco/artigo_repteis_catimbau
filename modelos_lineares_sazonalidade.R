@@ -95,6 +95,7 @@ pseudor2_q0
 ## Dataframe de estatísticas ----
 
 sts_q0 <- tibble::tibble(Diversity = 10,
+                         tipo = "q = 0",
                          Season = 0.5,
                          sts = paste0("β1 ± EP = ",
                                       summary_q0$coefficients[2, 1] |> round(3),
