@@ -151,9 +151,8 @@ sts_q1
 
 ## Unindo os dataframes de estatística ----
 
-sts_df <- ls(pattern = "sts_q") |>
-  mget(envir = globalenv()) |>
-  dplyr::bind_rows()
+sts_df <- dplyr::bind_rows(sts_q0,
+                           sts_q1)
 
 sts_df
 
