@@ -14,6 +14,8 @@ library(performance)
 
 library(ggtext)
 
+library(ggview)
+
 # Dados ----
 
 ## Composição de espécies ----
@@ -184,4 +186,5 @@ df_hill |>
                       names_to = "tipo",
                       values_to = "Diversity") |>
 
-  ggplot()
+  ggplot(aes(Season, Diversity, fill = Season)) +
+  geom_point(shape = 21, color = "black", size = 7.5, stroke = 1)
