@@ -90,6 +90,8 @@ summary_q0
 
 pseudor2_q0 <- modelo_q0 |> performance::r2_mcfadden()
 
+pseudor2_q0
+
 ## Dataframe de estatísticas ----
 
 sts_q0 <- tibble::tibble(Diversity = 10,
@@ -98,12 +100,14 @@ sts_q0 <- tibble::tibble(Diversity = 10,
                                       summary_q0$coefficients[2, 1] |> round(3),
                                       " ± ",
                                       summary_q0$coefficients[2, 2] |> round(4),
-                                      "<br>t = ",
+                                      "<br>z = ",
                                       summary_q0$coefficients[2, 3] |> round(2),
                                       ", p = ",
                                       summary_q0$coefficients[2, 4] |> round(3),
                                       ", pseudo-R² = ",
-                                      pseudor2_q0 |> round(2)))
+                                      pseudor2_q0[[2]] |> round(2)))
+
+sts_q0
 
 # Modelo linear de diversidade ----
 
