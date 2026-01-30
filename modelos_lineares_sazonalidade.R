@@ -52,22 +52,19 @@ var_macro |> dplyr::glimpse()
 
 # Riqueza e diversidade ----
 
-## Dataframe único das variáveis ambientais ----
+df_hill <- comp |>
+  tibble::column_to_rownames(var = "Parcela") |>
+  vegan::renyi(scales = 0:1, hill = TRUE) |>
+  tibble::rownames_to_column() |>
+  dplyr::rename("Parcela" = 1,
+                "q = 0" = 2,
+                "q = 1" = 3) |>
+  dplyr::mutate(Season = Parcela |>
+                  stringr::str_extract("(?<=_).*"),
+                Season = dplyr::case_when(Season == "chuva" ~ "Rainy",
+                                          .default = "Dry"))
 
-var_df <- var_macro |>
-  dplyr::left_join(var_micro |>
-                     dplyr::select(1:3),
-                   by = "Parcela")
-
-var_df
-
-## Riqueza ----
-
-riqueza
-
-## Diversidade ----
-
-## Unindo os dados ----
+df_hill
 
 # Modelo linear de riqueza -----
 
@@ -79,8 +76,6 @@ riqueza
 
 ## Dataframe de estatísticas ----
 
-## Gráfico -----
-
 # Modelo linear de diversidade ----
 
 ## Criando o modelo ----
@@ -91,4 +86,4 @@ riqueza
 
 ## Dataframe de estatísticas ----
 
-## Gráfico -----
+# Gráfico -----
