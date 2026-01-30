@@ -84,11 +84,22 @@ summary_q0 <- modelo_q0 |> summary()
 
 summary_q0
 
+## Pseudo-R² ----
+
 ## Dataframe de estatísticas ----
 
 sts_q0 <- tibble::tibble(Diversity = 10,
                          Season = 0.5,
-                         sts = paste0(""))
+                         sts = paste0("β1 ± EP = ",
+                                      summary_q0$coefficients[2, 1] |> round(3),
+                                      " ± ",
+                                      summary_q0$coefficients[2, 2] |> round(4),
+                                      "<br>t = ",
+                                      summary_q0$coefficients[2, 3] |> round(2),
+                                      ", p = ",
+                                      summary_q0$coefficients[2, 4] |> round(3),
+                                      ", pseudo-R² = ",
+                                      pseudor2_q0 |> round(2)))
 
 # Modelo linear de diversidade ----
 
