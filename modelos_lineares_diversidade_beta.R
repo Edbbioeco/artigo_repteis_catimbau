@@ -283,12 +283,12 @@ sumariounico
 
 ### Estatísticas do modelo ----
 
-medias <- df_dis |>
+medianas <- df_dis |>
   dplyr::summarise(dplyr::across(.cols = c(1, 3:6),
-                                 .fns = ~mean(.))) |>
+                                 .fns = ~median(.))) |>
   as.numeric()
 
-medias
+medianas
 
 df_sts <- sumariounico$coefficients$cond |>
   as.data.frame() |>
@@ -299,13 +299,13 @@ df_sts <- sumariounico$coefficients$cond |>
                                               .default = paste0("= ",
                                                                 `Pr(>|z|)` |>
                                                                   round(4)))) |>
-  dplyr::mutate(comp = 0.5,
-                dissimilaridade = medias,
+  dplyr::mutate(comp = 0.52,
+                dissimilaridade = c(200, 9, 0.9, 1, 3),
                 sts = paste0("β1 ± EP = ",
                              Estimate |> round(3),
                              " ± ",
                              `Std. Error` |> round(4),
-                             ", z = ",
+                             "<br>z = ",
                              `z value` |> round(2),
                              ", p ",
                              `Pr(>|z|)`),
@@ -336,7 +336,15 @@ df_dis |>
                                               "Humidity")),
               method = "lm",
               se = FALSE) +
+  ggtext::geom_richtext(data = df_sts,
+                        aes(dissimilaridade, comp, label = sts),
+                        size = 5,
+                        label.colour = NA,
+                        fill = NA) +
   facet_wrap(~variavel, scales = "free_x") +
+  labs(x = "Environmental dissimilarity",
+       y = "Beta diversity") +
+  scale_y_continuous(limits = c(0.1, 0.53)) +
   theme_bw() +
   theme(axis.text = element_text(color = "black", size = 20),
         axis.title = element_text(color = "black", size = 20),
