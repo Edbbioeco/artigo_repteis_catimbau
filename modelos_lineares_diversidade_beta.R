@@ -222,4 +222,17 @@ ls(pattern = "modelo_") |>
 
 ## Pressupostos dos modelos ----
 
+pressupostos_mdelo <- function(modelo){
+
+  pressuposto <- modelo |> DHARMa::simulateResiduals(plot = TRUE)
+
+  print(pressuposto)
+
+}
+
+modelo <- ls(pattern = "modelo_") |>
+  mget(envir = globalenv())
+
+purrr::map(modelo, pressupostos_mdelo)
+
 ## Estatísticas dos modelos ----
