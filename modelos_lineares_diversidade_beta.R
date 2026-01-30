@@ -236,3 +236,19 @@ modelo <- ls(pattern = "modelo_") |>
 purrr::map(modelo, pressupostos_mdelo)
 
 ## Estatísticas dos modelos ----
+
+sts_modelo <- function(modelo, var){
+
+  sumario <- modelo |>
+    summary()
+
+  assign(paste0("sumario_", var),
+         sumario,
+         envir = globalenv())
+
+}
+
+purrr::map2(modelo, var, sts_modelo)
+
+ls(pattern = "sumario_") |>
+  mget(envir = globalenv())
