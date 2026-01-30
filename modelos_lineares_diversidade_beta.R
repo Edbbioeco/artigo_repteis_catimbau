@@ -91,7 +91,7 @@ amb_dis <- function(nome_var){
     vegan::vegdist(method = "euclidean") |>
     as.numeric()
 
-  assign(paste0("dis_amb_", nome_var),
+  assign(paste0("dis_", nome_var),
          dissim_amb,
          envir = globalenv())
 
@@ -102,3 +102,7 @@ nome_var <- df_var |>
   names()
 
 nome_var
+
+purrr::map(nome_var, amb_dis)
+
+## Unindo os dados ----
