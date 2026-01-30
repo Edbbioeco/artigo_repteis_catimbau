@@ -305,10 +305,15 @@ df_sts <- sumariounico$coefficients$cond |>
                              Estimate |> round(3),
                              " ± ",
                              `Std. Error` |> round(4),
-                             "z = ",
-                             `Std. Error` |> round(2),
+                             ", z = ",
+                             `z value` |> round(2),
                              ", p ",
-                             `Pr(>|z|)`)) |>
+                             `Pr(>|z|)`),
+                variavel = c("Altitude",
+                             "Canopy openness",
+                             "Leaf litter volumn",
+                             "Temperature",
+                             "Humidity")) |>
   dplyr::select(-c(2:5))
 
 df_sts
@@ -316,6 +321,30 @@ df_sts
 ### Gráfico ----
 
 df_dis |>
+  dplyr::rename("Altitude" = 1,
+                "Canopy openness" = 3,
+                "Leaf litter volumn" = 4,
+                "Temperature" = 5,
+                "Humidity" = 6) |>
   tidyr::pivot_longer(cols = c(1, 3:6),
                       names_to = "variavel",
-                      values_to = "dissimilaridade")
+                      values_to = "dissimilaridade") |>
+  ggplot(aes(dissimilaridade, comp)) +
+  geom_point(size = 5) +
+  geom_smooth(data = . %>%
+                dplyr::filter(variavel %in% c("Canopy openness",
+                                              "Humidity")),
+              method = "lm",
+              se = FALSE) +
+  facet_wrap(~variavel, scales = "free_x") +
+  theme_bw() +
+  theme(axis.text = element_text(color = "black", size = 20),
+        axis.title = element_text(color = "black", size = 20),
+        strip.text = element_text(color = "black", size = 25),
+        strip.background = element_rect(color = "black", linewidth = 1),
+        legend.position = "none",
+        panel.background = element_rect(color = "black", linewidth = 1)) +
+  ggview::canvas(height = 10, width = 12)
+
+ggsave(filename = "grafico_modelo_linear_diversidade_beta.png",
+       height = 10, width = 12)
