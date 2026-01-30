@@ -73,6 +73,13 @@ dis_comp
 
 ## Dissimilaridade ambiental ----
 
+df_var <- var_micro |>
+  dplyr::select(1:3) |>
+  dplyr::left_join(var_macro,
+                   by = "Parcela")
+
+df_var
+
 amb_dis <- function(nome_var){
 
   dissim_amb <- df_var |>
@@ -90,9 +97,8 @@ amb_dis <- function(nome_var){
 
 }
 
-df_var <- var_micro |>
-  dplyr::select(1:3) |>
-  dplyr::left_join(var_macro,
-                   by = "Parcela")
+nome_var <- df_var |>
+  dplyr::select(dplyr::where(is.numeric)) |>
+  names()
 
-df_var
+nome_var
