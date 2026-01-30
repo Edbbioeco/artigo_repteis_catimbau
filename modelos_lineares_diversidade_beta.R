@@ -116,11 +116,9 @@ df_dis
 
 df_dis |> dplyr::glimpse()
 
-# Modelo linear ----
+# Multicolinearidade ----
 
-## Multicolinearidade ----
-
-### Calculando a correlação múltipla ----
+## Calculando a correlação múltipla ----
 
 cor_multipla <- df_dis |>
   dplyr::select(dplyr::contains("_amb_")) |>
@@ -129,7 +127,7 @@ cor_multipla <- df_dis |>
 
 cor_multipla
 
-### Dataframe dos valores de correlação ----
+## Dataframe dos valores de correlação ----
 
 cor_multipla[upper.tri(cor_multipla)] <- NA
 
@@ -152,7 +150,7 @@ cor_df <- cor_multipla |>
 
 cor_df
 
-### Gráfico ----
+## Gráfico ----
 
 cor_df |>
   ggplot(aes(Var1, Var2,
@@ -182,3 +180,4 @@ cor_df |>
 
 ggsave(filename = "multicolinearidade.png",
        height = 10, width = 12)
+
