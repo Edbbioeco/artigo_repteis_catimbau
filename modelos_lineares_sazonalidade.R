@@ -134,6 +134,37 @@ summary_q1
 
 ## Dataframe de estatísticas ----
 
+sts_q1 <- tibble::tibble(Diversity = 5,
+                         Season = 0.5,
+                         sts =paste0("β1 ± EP = ",
+                                     summary_q1$coefficients[2, 1] |> round(3),
+                                     " ± ",
+                                     summary_q1$coefficients[2, 2] |> round(4),
+                                     "<br>t = ",
+                                     summary_q1$coefficients[2, 3] |> round(2),
+                                     ", p = ",
+                                     summary_q1$coefficients[2, 4] |> round(3),
+                                     "<br> F<sub>",
+                                     summary_q1$fstatistic[2] |>
+                                       round(1),
+                                     ", ",
+                                     summary_q1$fstatistic[3] |>
+                                       round(1),
+                                     "</sub> = ",
+                                     summary_q1$fstatistic[1] |>
+                                       round(2),
+                                     ", p = ",
+                                     pf(summary_q1$fstatistic[1],
+                                        summary_q1$fstatistic[2],
+                                        summary_q1$fstatistic[3],
+                                        lower.tail = FALSE) |>
+                                       round(2),
+                                     ", R² = ",
+                                     summary_q1$adj.r.squared |>
+                                       round(2)))
+
+sts_q1
+
 # Gráfico -----
 
 ## Unindo os dataframes de estatística ----
