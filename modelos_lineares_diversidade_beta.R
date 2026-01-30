@@ -61,12 +61,13 @@ var_macro |> dplyr::glimpse()
 ## Dissimilaridade de composição ----
 
 dis_comp <- comp |>
-  dplyr::mutate(Parcela = Parcela |> stringr::str_remove_all("_chuva|_seca")) |>
-  dplyr::summarise(dplyr::across(.cols = dplyr::where(is.numeric),
-                                 .fns = ~max(.)),
-                   .by = Parcela) |>
+  #dplyr::mutate(Parcela = Parcela |> stringr::str_remove_all("_chuva|_seca")) |>
+  #dplyr::summarise(dplyr::across(.cols = dplyr::where(is.numeric),
+                                #.fns = ~max(.)),
+                  #.by = Parcela) |>
+  dplyr::filter(Parcela |> stringr::str_detect("chuva")) |>
   tibble::column_to_rownames(var = "Parcela") |>
-  vegan::vegdist() |>
+  vegan::vegdist(method = "bray") |>
   as.numeric()
 
 dis_comp
@@ -83,10 +84,11 @@ df_var
 amb_dis <- function(nome_var){
 
   dissim_amb <- df_var |>
-    dplyr::mutate(Parcela = Parcela |> stringr::str_remove_all("_Chuvosa|_Seca")) |>
-    dplyr::summarise(dplyr::across(.cols = dplyr::where(is.numeric),
-                                   .fns = ~max(.)),
-                     .by = Parcela) |>
+    #dplyr::mutate(Parcela = Parcela |> stringr::str_remove_all("_Chuvosa|_Seca")) |>
+    #dplyr::summarise(dplyr::across(.cols = dplyr::where(is.numeric),
+                                   #.fns = ~max(.)),
+                     #.by = Parcela) |>
+    dplyr::filter(Parcela |> stringr::str_detect("Chuvosa")) |>
     dplyr::select(nome_var) |>
     vegan::vegdist(method = "euclidean") |>
     as.numeric()
@@ -184,7 +186,9 @@ ggsave(filename = "multicolinearidade.png",
 
 # Modelos lineares ----
 
-## Nome das variáveis ----
+## Multiplos modelos ----
+
+### Nome das variáveis ----
 
 nomes_var <- df_dis |>
   names() |>
@@ -201,7 +205,7 @@ var <- df_dis |>
 
 var
 
-## Criando os modelos ----
+### Criando os modelos ----
 
 criar_modelos <- function(var){
 
@@ -220,7 +224,7 @@ purrr::map(var, criar_modelos)
 ls(pattern = "modelo_") |>
   mget(envir = globalenv())
 
-## Pressupostos dos modelos ----
+### Pressupostos dos modelos ----
 
 pressupostos_mdelo <- function(modelo){
 
@@ -235,7 +239,7 @@ modelo <- ls(pattern = "modelo_") |>
 
 purrr::map(modelo, pressupostos_mdelo)
 
-## Estatísticas dos modelos ----
+### Estatísticas dos modelos ----
 
 sts_modelo <- function(modelo, var){
 
@@ -252,3 +256,9 @@ purrr::map2(modelo, var, sts_modelo)
 
 ls(pattern = "sumario_") |>
   mget(envir = globalenv())
+
+## Modelo único ----
+
+betareg::betareg(comp ~ .,
+                 data = df_dis) |>
+  summary()
