@@ -91,7 +91,7 @@ amb_dis <- function(nome_var){
     vegan::vegdist(method = "euclidean") |>
     as.numeric()
 
-  assign(paste0("dis_", nome_var),
+  assign(paste0("dis_amb_", nome_var),
          dissim_amb,
          envir = globalenv())
 
@@ -107,8 +107,47 @@ purrr::map(nome_var, amb_dis)
 
 ## Unindo os dados ----
 
-df_dis <- ls(pattern = "dis_") |>
+df_dis <- ls(pattern = "dis_amb_") |>
   mget(envir = globalenv()) |>
-  dplyr::bind_cols()
+  dplyr::bind_cols() |>
+  dplyr::mutate(dis_comp)
 
 df_dis
+
+df_dis |> dplyr::glimpse()
+
+# Modelo linear ----
+
+## Multicolinearidade ----
+
+### Calculando a correlação múltipla ----
+
+cor_multipla <- df_dis |>
+  dplyr::select(dplyr::contains("_amb_")) |>
+  cor(method = "spearman") |>
+  as.matrix()
+
+cor_multipla
+
+### Dataframe dos valores de correlação ----
+
+cor_multipla[upper.tri(cor_multipla)] <- NA
+
+cor_multipla
+
+cor_df <- cor_multipla |>
+  reshape2::melt() |>
+  dplyr::mutate(igual = dplyr::case_when(Var1 == Var2 ~ "sim",
+                                         .default = "não"),
+                value = value |> round(2),
+                Var1 = Var1 |>
+                  stringr::str_replace_all("_", " ") |>
+                  stringr::word(3),
+                Var2 = Var2 |>
+                  stringr::str_replace_all("_", " ") |>
+                  stringr::word(3)) |>
+  dplyr::filter(!value |> is.na() & igual == "não") |>
+  dplyr::select(-igual) |>
+  dplyr::rename("Spearman Correlation Index" = value)
+
+cor_df
