@@ -12,8 +12,6 @@ library(viridis)
 
 library(glmmTMB)
 
-library(janitor)
-
 library(DHARMa)
 
 library(ggtext)
