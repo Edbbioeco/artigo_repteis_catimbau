@@ -6,6 +6,8 @@ library(tidyverse)
 
 library(vegan)
 
+library(janitor)
+
 library(DHARMa)
 
 library(performance)
@@ -70,8 +72,8 @@ df_hill
 
 ## Criando o modelo ----
 
-modelo_q0 <- glm(`q = 0` ~ Season,
-                 data = df_hill,
+modelo_q0 <- glm(q_0 ~ season,
+                 data = df_hill |> janitor::clean_names(),
                  family = poisson(link = "log"))
 
 ## Pressupostos do modelo ----
@@ -85,6 +87,8 @@ summary_q0 <- modelo_q0 |> summary()
 summary_q0
 
 ## Pseudo-R² ----
+
+pseudor2_q0 <- modelo_q0 |> performance::r2_mcfadden()
 
 ## Dataframe de estatísticas ----
 
