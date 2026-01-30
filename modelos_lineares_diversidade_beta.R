@@ -186,20 +186,41 @@ ggsave(filename = "multicolinearidade.png",
 
 # Modelos lineares ----
 
-## Criando os modelos ----
+## Nome das variáveis ----
 
 nomes_var <- df_dis |>
   names() |>
   stringr::str_replace_all("_", " ") |>
-  stringr::word(3)
+  stringr::word(2)
 
-names(df_dis) <-
+nomes_var
+
+names(df_dis) <- nomes_var
+
+var <- df_dis |>
+  dplyr::select(-comp) |>
+  names()
+
+var
+
+## Criando os modelos ----
 
 criar_modelos <- function(var){
 
-  modelo <- lm()
+  modelo <- glmmTMB::glmmTMB(comp ~ df_dis[[var]],
+                             data = df_dis,
+                             family = glmmTMB::beta_family())
+
+  assign(paste0("modelo_", var),
+         modelo,
+         envir = globalenv())
 
 }
+
+purrr::map(var, criar_modelos)
+
+ls(pattern = "modelo_") |>
+  mget(envir = globalenv())
 
 ## Pressupostos dos modelos ----
 
