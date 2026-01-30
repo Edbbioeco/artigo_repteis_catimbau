@@ -106,3 +106,9 @@ nome_var
 purrr::map(nome_var, amb_dis)
 
 ## Unindo os dados ----
+
+df_dis <- ls(pattern = "dis_") |>
+  mget(envir = globalenv()) |>
+  dplyr::bind_cols()
+
+df_dis
