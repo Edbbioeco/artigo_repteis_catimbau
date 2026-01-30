@@ -61,8 +61,38 @@ var_macro |> dplyr::glimpse()
 ## Dissimilaridade de composição ----
 
 dis_comp <- comp |>
+  dplyr::mutate(Parcela = Parcela |> stringr::str_remove_all("_chuva|_seca")) |>
+  dplyr::summarise(dplyr::across(.cols = dplyr::where(is.numeric),
+                                 .fns = ~max(.)),
+                   .by = Parcela) |>
   tibble::column_to_rownames(var = "Parcela") |>
   vegan::vegdist() |>
   as.numeric()
 
 dis_comp
+
+## Dissimilaridade ambiental ----
+
+amb_dis <- function(nome_var){
+
+  dissim_amb <- df_var |>
+    dplyr::mutate(Parcela = Parcela |> stringr::str_remove_all("_Chuvosa|_Seca")) |>
+    dplyr::summarise(dplyr::across(.cols = dplyr::where(is.numeric),
+                                   .fns = ~max(.)),
+                     .by = Parcela) |>
+    dplyr::select(nome_var) |>
+    vegan::vegdist(method = "euclidean") |>
+    as.numeric()
+
+  assign(paste0("dis_amb_", nome_var),
+         dissim_amb,
+         envir = globalenv())
+
+}
+
+df_var <- var_micro |>
+  dplyr::select(1:3) |>
+  dplyr::left_join(var_macro,
+                   by = "Parcela")
+
+df_var
