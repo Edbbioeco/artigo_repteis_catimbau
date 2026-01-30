@@ -98,9 +98,10 @@ pseudor2_q0
 
 ## Dataframe de estatísticas ----
 
-sts_q0 <- tibble::tibble(Diversity = 10,
+sts_q0 <- tibble::tibble(Diversity = 9,
                          tipo = "q = 0",
-                         Season = 0.5,
+                         Season = NA,
+                         x = 1.5,
                          sts = paste0("β1 ± EP = ",
                                       summary_q0$coefficients[2, 1] |> round(3),
                                       " ± ",
@@ -139,9 +140,10 @@ summary_q1
 
 ## Dataframe de estatísticas ----
 
-sts_q1 <- tibble::tibble(Diversity = 5,
+sts_q1 <- tibble::tibble(Diversity = 4.7,
                          tipo = "q = 1",
-                         Season = 0.5,
+                         Season = NA,
+                         x = 1.5,
                          sts =paste0("β1 ± EP = ",
                                      summary_q1$coefficients[2, 1] |> round(3),
                                      " ± ",
@@ -187,10 +189,15 @@ df_hill |>
   tidyr::pivot_longer(cols = 2:3,
                       names_to = "tipo",
                       values_to = "Diversity") |>
-
   ggplot(aes(Season, Diversity, fill = Season)) +
   ggbeeswarm::geom_quasirandom(shape = 21, color = "black",
                                size = 7.5, stroke = 1) +
+  ggtext::geom_richtext(data = sts_df,
+                        aes(x, Diversity, label = sts),
+                        size = 7.5,
+                        label.colour = NA,
+                        fill = NA,
+                        fontface = "bold") +
   facet_wrap(~tipo, scales = "free_y") +
   theme_bw() +
   theme(axis.text = element_text(color = "black", size = 20),
