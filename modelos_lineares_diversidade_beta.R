@@ -60,6 +60,9 @@ var_macro |> dplyr::glimpse()
 
 ## Dissimilaridade de composição ----
 
-comp |>
-  tibble::column_to_rownames(var = "Parcelas") |>
-  vegan::vegdist()
+dis_comp <- comp |>
+  tibble::column_to_rownames(var = "Parcela") |>
+  vegan::vegdist() |>
+  as.numeric()
+
+dis_comp
