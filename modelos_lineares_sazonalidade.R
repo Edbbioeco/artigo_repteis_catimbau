@@ -136,6 +136,7 @@ summary_q1
 ## Dataframe de estatísticas ----
 
 sts_q1 <- tibble::tibble(Diversity = 5,
+                         tipo = "q = 1",
                          Season = 0.5,
                          sts =paste0("β1 ± EP = ",
                                      summary_q1$coefficients[2, 1] |> round(3),
