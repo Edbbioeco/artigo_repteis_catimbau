@@ -12,6 +12,8 @@ library(DHARMa)
 
 library(performance)
 
+library(ggbeeswarm)
+
 library(ggtext)
 
 library(ggview)
@@ -187,7 +189,8 @@ df_hill |>
                       values_to = "Diversity") |>
 
   ggplot(aes(Season, Diversity, fill = Season)) +
-  geom_point(shape = 21, color = "black", size = 7.5, stroke = 1) +
+  ggbeeswarm::geom_quasirandom(shape = 21, color = "black",
+                               size = 7.5, stroke = 1) +
   facet_wrap(~tipo, scales = "free_y") +
   theme_bw() +
   theme(axis.text = element_text(color = "black", size = 20),
