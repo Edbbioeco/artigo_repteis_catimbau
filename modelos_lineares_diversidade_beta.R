@@ -14,6 +14,8 @@ library(glmmTMB)
 
 library(DHARMa)
 
+library(performance)
+
 library(ggtext)
 
 library(ggview)
@@ -279,16 +281,13 @@ sumariounico <- modelounico |> summary()
 
 sumariounico
 
+pseudor2unico <- modelounico |> performance::r2() |> as.numeric()
+
+pseudor2unico
+
 ## Gráfico ----
 
 ### Estatísticas do modelo ----
-
-medianas <- df_dis |>
-  dplyr::summarise(dplyr::across(.cols = c(1, 3:6),
-                                 .fns = ~median(.))) |>
-  as.numeric()
-
-medianas
 
 df_sts <- sumariounico$coefficients$cond |>
   as.data.frame() |>
@@ -343,7 +342,8 @@ df_dis |>
                         fill = NA) +
   facet_wrap(~variavel, scales = "free_x") +
   labs(x = "Environmental dissimilarity",
-       y = "Beta diversity") +
+       y = "Beta diversity",
+       title = paste0("z-critic = 1.96, pseudo-R² = ", pseudor2unico |> round(2))) +
   scale_y_continuous(limits = c(0.1, 0.53)) +
   theme_bw() +
   theme(axis.text = element_text(color = "black", size = 20),
@@ -351,7 +351,8 @@ df_dis |>
         strip.text = element_text(color = "black", size = 25),
         strip.background = element_rect(color = "black", linewidth = 1),
         legend.position = "none",
-        panel.background = element_rect(color = "black", linewidth = 1)) +
+        panel.background = element_rect(color = "black", linewidth = 1),
+        plot.title = element_text(color = "black", size = 20)) +
   ggview::canvas(height = 10, width = 12)
 
 ggsave(filename = "grafico_modelo_linear_diversidade_beta.png",
