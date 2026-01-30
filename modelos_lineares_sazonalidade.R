@@ -70,7 +70,13 @@ df_hill
 
 ## Criando o modelo ----
 
+modelo_q0 <- glm(`q = 0` ~ Season,
+                 data = df_hill,
+                 family = poisson(link = "log"))
+
 ## Pressupostos do modelo ----
+
+modelo_q0 |> DHARMa::simulateResiduals(plot = TRUE)
 
 ## Estatísticas do modelo ----
 
