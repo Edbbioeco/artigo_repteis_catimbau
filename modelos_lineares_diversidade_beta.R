@@ -8,6 +8,8 @@ library(vegan)
 
 library(reshape2)
 
+library(viridis)
+
 library(glmmTMB)
 
 library(janitor)
@@ -91,7 +93,7 @@ amb_dis <- function(nome_var){
     vegan::vegdist(method = "euclidean") |>
     as.numeric()
 
-  assign(paste0("dis_amb_", nome_var),
+  assign(paste0("dis_", nome_var),
          dissim_amb,
          envir = globalenv())
 
@@ -107,10 +109,9 @@ purrr::map(nome_var, amb_dis)
 
 ## Unindo os dados ----
 
-df_dis <- ls(pattern = "dis_amb_") |>
+df_dis <- ls(pattern = "dis_") |>
   mget(envir = globalenv()) |>
-  dplyr::bind_cols() |>
-  dplyr::mutate(dis_comp)
+  dplyr::bind_cols()
 
 df_dis
 
@@ -121,7 +122,7 @@ df_dis |> dplyr::glimpse()
 ## Calculando a correlação múltipla ----
 
 cor_multipla <- df_dis |>
-  dplyr::select(dplyr::contains("_amb_")) |>
+  dplyr::select(!dplyr::contains("comp")) |>
   cor(method = "spearman") |>
   as.matrix()
 
@@ -140,10 +141,10 @@ cor_df <- cor_multipla |>
                 value = value |> round(2),
                 Var1 = Var1 |>
                   stringr::str_replace_all("_", " ") |>
-                  stringr::word(3),
+                  stringr::word(2),
                 Var2 = Var2 |>
                   stringr::str_replace_all("_", " ") |>
-                  stringr::word(3)) |>
+                  stringr::word(2)) |>
   dplyr::filter(!value |> is.na() & igual == "não") |>
   dplyr::select(-igual) |>
   dplyr::rename("Spearman Correlation Index" = value)
@@ -160,7 +161,9 @@ cor_df |>
   geom_text(color = "black", size = 7.5, fontface = "bold") +
   labs(x = NULL,
        y = NULL) +
-  scale_fill_viridis_c(guide = guide_colorbar(title.position = "top",
+  scale_fill_gradientn(colours = c(viridis::viridis(n = 10) |> rev(),
+                                   viridis::viridis(n = 10)),
+                       guide = guide_colorbar(title.position = "top",
                                               title.hjust = 0.5,
                                               barwidth = 30,
                                               frame.colour = "black",
@@ -181,3 +184,23 @@ cor_df |>
 ggsave(filename = "multicolinearidade.png",
        height = 10, width = 12)
 
+# Modelos lineares ----
+
+## Criando os modelos ----
+
+nomes_var <- df_dis |>
+  names() |>
+  stringr::str_replace_all("_", " ") |>
+  stringr::word(3)
+
+names(df_dis) <-
+
+criar_modelos <- function(var){
+
+  modelo <- lm()
+
+}
+
+## Pressupostos dos modelos ----
+
+## Estatísticas dos modelos ----
