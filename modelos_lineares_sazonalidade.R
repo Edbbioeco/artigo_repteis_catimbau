@@ -199,6 +199,7 @@ df_hill |>
                         fill = NA,
                         fontface = "bold") +
   facet_wrap(~tipo, scales = "free_y") +
+  scale_fill_manual(values = c("orange", "royalblue")) +
   theme_bw() +
   theme(axis.text = element_text(color = "black", size = 20),
         axis.title = element_text(color = "black", size = 20),
@@ -208,3 +209,5 @@ df_hill |>
         panel.background = element_rect(color = "black", linewidth = 1)) +
   ggview::canvas(height = 10, width = 12)
 
+ggsave(filename = "grafico_sazonalidade_diversidade.png",
+       height = 10, width = 12)
