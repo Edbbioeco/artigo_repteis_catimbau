@@ -8,9 +8,9 @@ library(vegan)
 
 library(DHARMa)
 
-library(ggtext)
-
 library(performance)
+
+library(ggtext)
 
 # Dados ----
 
@@ -93,3 +93,7 @@ modelo_q0 |> DHARMa::simulateResiduals(plot = TRUE)
 ## Dataframe de estatísticas ----
 
 # Gráfico -----
+
+## Unindo os dataframes de estatística ----
+
+## Gráfico ----
