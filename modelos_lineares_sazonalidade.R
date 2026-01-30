@@ -80,7 +80,15 @@ modelo_q0 |> DHARMa::simulateResiduals(plot = TRUE)
 
 ## Estatísticas do modelo ----
 
+summary_q0 <- modelo_q0 |> summary()
+
+summary_q0
+
 ## Dataframe de estatísticas ----
+
+sts_q0 <- tibble::tibble(Diversity = 10,
+                         Season = 0.5,
+                         sts = paste0(""))
 
 # Modelo linear de diversidade ----
 
