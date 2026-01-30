@@ -190,4 +190,11 @@ df_hill |>
   geom_point(shape = 21, color = "black", size = 7.5, stroke = 1) +
   facet_wrap(~tipo, scales = "free_y") +
   theme_bw() +
+  theme(axis.text = element_text(color = "black", size = 20),
+        axis.title = element_text(color = "black", size = 20),
+        strip.text = element_text(color = "black", size = 25),
+        strip.background = element_rect(color = "black", linewidth = 1),
+        legend.position = "none",
+        panel.background = element_rect(color = "black", linewidth = 1)) +
   ggview::canvas(height = 10, width = 12)
+
