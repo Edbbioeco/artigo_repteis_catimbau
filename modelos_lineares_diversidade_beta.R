@@ -275,5 +275,47 @@ modelounico |> DHARMa::simulateResiduals(plot = TRUE)
 
 ### Estatísticas do modelo ----
 
-modelounico |> summary()
+sumariounico <- modelounico |> summary()
 
+sumariounico
+
+## Gráfico ----
+
+### Estatísticas do modelo ----
+
+medias <- df_dis |>
+  dplyr::summarise(dplyr::across(.cols = c(1, 3:6),
+                                 .fns = ~mean(.))) |>
+  as.numeric()
+
+medias
+
+df_sts <- sumariounico$coefficients$cond |>
+  as.data.frame() |>
+  tibble::rownames_to_column() |>
+  dplyr::filter(!rowname |> stringr::str_detect("Int")) |>
+  dplyr::rename("variavel" = rowname) |>
+  dplyr::mutate(`Pr(>|z|)` = dplyr::case_when(`Pr(>|z|)` < 0.01 ~ "<0.01",
+                                              .default = paste0("= ",
+                                                                `Pr(>|z|)` |>
+                                                                  round(4)))) |>
+  dplyr::mutate(comp = 0.5,
+                dissimilaridade = medias,
+                sts = paste0("β1 ± EP = ",
+                             Estimate |> round(3),
+                             " ± ",
+                             `Std. Error` |> round(4),
+                             "z = ",
+                             `Std. Error` |> round(2),
+                             ", p ",
+                             `Pr(>|z|)`)) |>
+  dplyr::select(-c(2:5))
+
+df_sts
+
+### Gráfico ----
+
+df_dis |>
+  tidyr::pivot_longer(cols = c(1, 3:6),
+                      names_to = "variavel",
+                      values_to = "dissimilaridade")
