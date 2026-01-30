@@ -171,4 +171,17 @@ sts_q1
 
 ## Unindo os dataframes de estatística ----
 
+sts_df <- ls(pattern = "sts_q") |>
+  mget(envir = globalenv()) |>
+  dplyr::bind_rows()
+
+sts_df
+
 ## Gráfico ----
+
+df_hill |>
+  tidyr::pivot_longer(cols = 2:3,
+                      names_to = "tipo",
+                      values_to = "Diversity") |>
+
+  ggplot()
