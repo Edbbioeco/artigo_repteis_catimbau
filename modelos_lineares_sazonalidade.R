@@ -187,4 +187,7 @@ df_hill |>
                       values_to = "Diversity") |>
 
   ggplot(aes(Season, Diversity, fill = Season)) +
-  geom_point(shape = 21, color = "black", size = 7.5, stroke = 1)
+  geom_point(shape = 21, color = "black", size = 7.5, stroke = 1) +
+  facet_wrap(~tipo, scales = "free_y") +
+  theme_bw() +
+  ggview::canvas(height = 10, width = 12)
