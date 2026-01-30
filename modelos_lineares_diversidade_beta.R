@@ -209,7 +209,7 @@ var
 
 criar_modelos <- function(var){
 
-  modelo <- glmmTMB::glmmTMB(comp ~ df_dis[[var]],
+  modelo <- glmmTMB::glmmTMB(comp ~ Altitude,
                              data = df_dis,
                              family = glmmTMB::beta_family())
 
@@ -259,6 +259,21 @@ ls(pattern = "sumario_") |>
 
 ## Modelo único ----
 
-betareg::betareg(comp ~ .,
-                 data = df_dis) |>
-  summary()
+### Criando o modelo ----
+
+modelounico <- glmmTMB::glmmTMB(comp ~ Altitude +
+                                   Dossel +
+                                   Folhiço +
+                                   Temperatura +
+                                   Umidade,
+                                 data = df_dis,
+                                 family = glmmTMB::beta_family())
+
+### Pressupostos do modelo ----
+
+modelounico |> DHARMa::simulateResiduals(plot = TRUE)
+
+### Estatísticas do modelo ----
+
+modelounico |> summary()
+
