@@ -113,7 +113,18 @@ sts_q0
 
 ## Criando o modelo ----
 
+modelo_q1 <- aov(q_1 ~ season,
+                 data = df_hill |> janitor::clean_names())
+
 ## Pressupostos do modelo ----
+
+modelo_q1 |> performance::check_model(check = c("homogeneity",
+                                                "qq",
+                                                "normality"))
+
+modelo_q1 |> performance::check_heteroscedasticity()
+
+modelo_q1 |> performance::check_normality()
 
 ## Estatísticas do modelo ----
 
