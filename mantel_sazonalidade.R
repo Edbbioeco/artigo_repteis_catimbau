@@ -6,7 +6,7 @@ library(tidyverse)
 
 library(vegan)
 
-library(sf)
+library(fields)
 
 library(ggview)
 
@@ -60,10 +60,11 @@ dis_bray_seca
 
 # Distância geográfica ----
 
-## Criando um shapefile das coordenadas ----
+dis_geo <- coord |>
+  dplyr::select(dplyr::where(is.numeric)) |>
+  as.data.frame() |>
+  fields::rdist.earth(miles = FALSE) |>
+  as.dist() |>
+  as.numeric()
 
-coord_sf <- coord |>
-  sf::st_as_sf(coords = c("Longitude", "Latitude"),
-               crs = 32725)
-
-coord_sf
+dis_geo
