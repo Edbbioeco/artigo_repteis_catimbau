@@ -103,6 +103,11 @@ scores_nmds |>
   scale_fill_manual(values = c("orange", "royalblue"),
                     guide = guide_legend(title.position = "top",
                                          title.hjust = 0.5)) +
+  ggtext::geom_richtext(data = sts_nmds,
+                        aes(NMDS1, NMDS2, label = sts),
+                        size = 10,
+                        label.colour = NA,
+                        fill = NA) +
   theme_bw() +
   theme(axis.text = element_text(color = "black", size = 20),
         axis.title = element_text(color = "black", size = 20),
