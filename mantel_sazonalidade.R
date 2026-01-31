@@ -68,3 +68,9 @@ dis_geo <- coord |>
   as.numeric()
 
 dis_geo
+
+# Teste de Mantel ----
+
+## Chuva ----
+
+## Seca ----
