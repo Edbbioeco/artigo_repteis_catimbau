@@ -17,3 +17,13 @@ coord <- readxl::read_xlsx("coordenadas_parcelas.xlsx")
 coord |> as.data.frame()
 
 coord |> dplyr::glimpse()
+
+# Tratando ----
+
+coord %<>%
+  dplyr::mutate(Longitude = Longitude / 1000000,
+                Latitude = Latitude / 1000000)
+
+coord
+
+# Visualizando ----
