@@ -110,7 +110,7 @@ mantel_seca
 ### Estatísticas ----
 
 sts_mantel_seca <- tibble::tibble(`Geographic distance (Km)` = dis_geo |> median(),
-                                  `Beta diversity` = 0.5,
+                                  `Beta diversity` = 0.75,
                                   sts = paste0("t<sub>",
                                                mantel_seca$parameter,
                                                "</sub> = ",
@@ -140,4 +140,26 @@ tibble::tibble(`Geographic distance (Km)` = dis_geo,
                Dry = dis_bray_seca) |>
   tidyr::pivot_longer(cols = 2:3,
                       names_to = "Season",
-                      values_to = "Beta diversity")
+                      values_to = "Beta diversity") |>
+  ggplot(aes(`Geographic distance (Km)`, `Beta diversity`, fill = Season)) +
+  geom_point(shape = 21, size = 7.5, color = "black", stroke = 1) +
+  scale_fill_manual(values = c("orange", "royalblue"),
+                    guide = guide_legend(title.position = "top",
+                                         title.hjust = 0.5)) +
+  ggtext::geom_richtext(data = df_sts,
+                        aes(`Geographic distance (Km)`, `Beta diversity`,
+                            label = sts),
+                        size = 10,
+                        label.colour = NA,
+                        fill = NA) +
+  facet_wrap(~Season, ncol = 1, scales = "free_y") +
+  theme_bw() +
+  theme(axis.text = element_text(color = "black", size = 20),
+        axis.title = element_text(color = "black", size = 20),
+        strip.text = element_text(color = "black", size = 25),
+        strip.background = element_rect(color = "black", linewidth = 1),
+        legend.position = "bottom",
+        legend.text = element_text(color = "black", size = 20),
+        legend.title = element_text(color = "black", size = 20),
+        panel.background = element_rect(color = "black", linewidth = 1)) +
+  ggview::canvas(height = 10, width = 12)
