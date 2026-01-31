@@ -22,7 +22,8 @@ coord |> dplyr::glimpse()
 
 coord %<>%
   dplyr::mutate(Longitude = Longitude / 1000000,
-                Latitude = Latitude / 1000000)
+                Latitude = Latitude / 1000000,
+                Parcela = Parcela |> stringr::str_remove("_seca"))
 
 coord
 
