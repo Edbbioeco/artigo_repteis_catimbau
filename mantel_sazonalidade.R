@@ -168,3 +168,6 @@ tibble::tibble(`Geographic distance (Km)` = dis_geo,
         panel.background = element_rect(color = "black", linewidth = 1)) +
   ggview::canvas(height = 10, width = 12)
 
+ggsave(filename = "grafico_mantel_sazonalidade.png",
+       height = 10, width = 12)
+
