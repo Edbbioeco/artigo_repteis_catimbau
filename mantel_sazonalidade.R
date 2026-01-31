@@ -38,8 +38,23 @@ coord |> dplyr::glimpse()
 
 # Dissimilaridade da composição ----
 
+## Época chuvosa ----
+
 dis_bray <- comp |>
   tibble::column_to_rownames(var = "Parcela") |>
-  vegan::vegdist()
+  vegan::vegdist() |>
+  as.numeric()
 
 dis_bray
+
+## Época seca ----
+
+# Distância geográfica ----
+
+## Criando um shapefile das coordenadas ----
+
+coord_sf <- coord |>
+  sf::st_as_sf(coords = c("Longitude", "Latitude"),
+               crs = 32725)
+
+coord_sf
