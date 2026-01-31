@@ -67,4 +67,13 @@ nmds
 
 ### Scores ----
 
+scores_nmds <- nmds |>
+  vegan::scores() |>
+  as.data.frame() |>
+  dplyr::mutate(Season = comp$Season)
+
+scores_nmds
+
 ### Estatísticas da PERMONOVA ----
+
+### Gráfico ----
