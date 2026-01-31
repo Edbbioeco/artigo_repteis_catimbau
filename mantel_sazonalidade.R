@@ -157,6 +157,7 @@ tibble::tibble(`Geographic distance (Km)` = dis_geo,
                 dplyr::filter(Season == "Dry"),
               method = "lm", se = FALSE) +
   facet_wrap(~Season, ncol = 1, scales = "free_y") +
+  scale_x_continuous(breaks = seq(2.4, 12.4, 2)) +
   theme_bw() +
   theme(axis.text = element_text(color = "black", size = 20),
         axis.title = element_text(color = "black", size = 20),
