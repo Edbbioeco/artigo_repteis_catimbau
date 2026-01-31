@@ -59,6 +59,12 @@ permanova
 
 ## Calculando NMDS ----
 
-## Estatísticas da PERMONOVA ----
+nmds <- dis_bray |> vegan::metaMDS(distance = "bray")
+
+nmds
 
 ## Gráfico ----
+
+### Scores ----
+
+### Estatísticas da PERMONOVA ----
