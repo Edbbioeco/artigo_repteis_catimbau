@@ -128,4 +128,9 @@ sts_mantel_seca
 
 ## Dataframe das estatísticas ----
 
+df_sts <- dplyr::bind_rows(sts_mantel_chuva,
+                           sts_mantel_seca)
+
+df_sts
+
 ## Gráfico ----
