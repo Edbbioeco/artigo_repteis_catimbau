@@ -26,6 +26,10 @@ comp |> dplyr::glimpse()
 
 # PERMANOVA ----
 
+## Calculando a matriz de disimilaridade ----
+
+## Criando uma variável de sazonaliadde ----
+
 ## Calculando PERMANOVA ----
 
 ## Estatísticas da PERMONOVA ----
