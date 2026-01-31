@@ -77,7 +77,7 @@ dis_geo
 
 ### Calculando ----
 
-mantel_chuva <- cor.test(dis_geo, dis_bray_seca)
+mantel_chuva <- cor.test(dis_geo, dis_bray_chuva)
 
 mantel_chuva
 
@@ -103,7 +103,28 @@ sts_mantel_chuva
 
 ### Calculando ----
 
+mantel_seca <- cor.test(dis_geo, dis_bray_seca)
+
+mantel_seca
+
 ### Estatísticas ----
+
+sts_mantel_seca <- tibble::tibble(`Distância geográfica` = dis_geo |> median(),
+                                  `Diversidade beta` = 0.5,
+                                  sts = paste0("t<sub>",
+                                               mantel_seca$parameter,
+                                               "</sub> = ",
+                                               mantel_seca$statistic |> round(2),
+                                               ", r = ",
+                                               mantel_seca$estimate |> round(2),
+                                               ", p ",
+                                               dplyr::if_else(mantel_seca$p.value < 0.01,
+                                                              "< 0.01",
+                                                              paste0("= ",
+                                                                     mantel_chuva$p.value |> round(3)))),
+                                 Season = "Dry")
+
+sts_mantel_seca
 
 ## Dataframe das estatísticas ----
 
