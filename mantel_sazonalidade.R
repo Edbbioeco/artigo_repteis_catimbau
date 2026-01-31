@@ -40,12 +40,13 @@ coord |> dplyr::glimpse()
 
 ## Época chuvosa ----
 
-dis_bray <- comp |>
+dis_bray_chuva <- comp |>
+  dplyr::filter(Parcela |> stringr::str_detect("chuva")) |>
   tibble::column_to_rownames(var = "Parcela") |>
   vegan::vegdist() |>
   as.numeric()
 
-dis_bray
+dis_bray_chuva
 
 ## Época seca ----
 
