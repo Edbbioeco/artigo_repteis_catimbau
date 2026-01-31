@@ -16,7 +16,13 @@ library(ggview)
 
 ## Importando ----
 
-## Visualizando ----
+comp <- readxl::read_xls("composicao.xls")
+
+## Visualizando -----
+
+comp
+
+comp |> dplyr::glimpse()
 
 # PERMANOVA ----
 
