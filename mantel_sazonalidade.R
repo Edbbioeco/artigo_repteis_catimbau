@@ -8,6 +8,8 @@ library(vegan)
 
 library(fields)
 
+library(ggtext)
+
 library(ggview)
 
 # Dados ----
@@ -75,7 +77,27 @@ dis_geo
 
 ### Calculando ----
 
+mantel_chuva <- cor.test(dis_geo, dis_bray_seca)
+
+mantel_chuva
+
 ### Estatísticas ----
+
+sts_mantel_chuva <- tibble::tibble(`Distância geográfica` = dis_geo |> median(),
+                                   `Diversidade beta` = 0.5,
+                                   sts = paste0("t<sub>",
+                                                mantel_chuva$parameter,
+                                                "</sub> = ",
+                                                mantel_chuva$statistic |> round(2),
+                                                ", r = ",
+                                                mantel_chuva$estimate |> round(2),
+                                                ", p ",
+                                                dplyr::if_else(mantel_chuva$p.value < 0.01,
+                                                               "< 0.01",
+                                                               paste0("= ", mantel_chuva$p.value |> round(3)))),
+                                   Season = "Rainy")
+
+sts_mantel_chuva
 
 ## Seca ----
 
