@@ -83,8 +83,8 @@ mantel_chuva
 
 ### Estatísticas ----
 
-sts_mantel_chuva <- tibble::tibble(`Distância geográfica` = dis_geo |> median(),
-                                   `Diversidade beta` = 0.5,
+sts_mantel_chuva <- tibble::tibble(`Geographic distance (Km)` = dis_geo |> median(),
+                                   `Beta diversity` = 0.5,
                                    sts = paste0("t<sub>",
                                                 mantel_chuva$parameter,
                                                 "</sub> = ",
@@ -109,8 +109,8 @@ mantel_seca
 
 ### Estatísticas ----
 
-sts_mantel_seca <- tibble::tibble(`Distância geográfica` = dis_geo |> median(),
-                                  `Diversidade beta` = 0.5,
+sts_mantel_seca <- tibble::tibble(`Geographic distance (Km)` = dis_geo |> median(),
+                                  `Beta diversity` = 0.5,
                                   sts = paste0("t<sub>",
                                                mantel_seca$parameter,
                                                "</sub> = ",
@@ -134,3 +134,10 @@ df_sts <- dplyr::bind_rows(sts_mantel_chuva,
 df_sts
 
 ## Gráfico ----
+
+tibble::tibble(`Geographic distance (Km)` = dis_geo,
+               Rainy = dis_bray_chuva,
+               Dry = dis_bray_seca) |>
+  tidyr::pivot_longer(cols = 2:3,
+                      names_to = "Season",
+                      values_to = "Beta diversity")
