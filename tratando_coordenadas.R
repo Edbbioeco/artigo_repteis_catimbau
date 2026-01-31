@@ -28,3 +28,5 @@ coord %<>%
 coord
 
 # Exportando ----
+
+coord |> writexl::write_xlsx("coord_trat.xlsx")
