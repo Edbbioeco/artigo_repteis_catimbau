@@ -28,4 +28,10 @@ comp |> dplyr::glimpse()
 
 ### Importando ----
 
+coord <- readxl::read_xlsx("coord_trat.xlsx")
+
 ### Visualizando ----
+
+coord |> as.data.frame()
+
+coord |> dplyr::glimpse()
