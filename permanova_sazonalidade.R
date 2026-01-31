@@ -55,10 +55,10 @@ permanova <- vegan::adonis2(dis_bray ~ Season,
 
 permanova
 
-## Estatísticas da PERMONOVA ----
-
 # NMDS ----
 
 ## Calculando NMDS ----
+
+## Estatísticas da PERMONOVA ----
 
 ## Gráfico ----
