@@ -76,4 +76,23 @@ scores_nmds
 
 ### Estatísticas da PERMONOVA ----
 
+sts_nmds <- tibble::tibble(NMDS1 = scores_nmds$NMDS1 |> median(),
+                           NMDS2 = scores_nmds$NMDS2 |> median(),
+                           sts = paste0("pseudo-F<sub>",
+                                        permanova$Df[1],
+                                        ", ",
+                                        permanova$Df[2],
+                                        "</sub> = ",
+                                        permanova$F[1] |> round(2),
+                                        ", p ",
+                                        dplyr::if_else(permanova$`Pr(>F)`[1] < 0.01,
+                                                       "< 0.01",
+                                                       paste0("= ",
+                                                              permanova$`Pr(>F)`[1])),
+                                        ", R² = ",
+                                        permanova$R2[2] |> round(2)),
+                           Season = NA)
+
+sts_nmds
+
 ### Gráfico ----
