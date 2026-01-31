@@ -50,6 +50,14 @@ dis_bray_chuva
 
 ## Época seca ----
 
+dis_bray_seca <- comp |>
+  dplyr::filter(Parcela |> stringr::str_detect("seca")) |>
+  tibble::column_to_rownames(var = "Parcela") |>
+  vegan::vegdist() |>
+  as.numeric()
+
+dis_bray_seca
+
 # Distância geográfica ----
 
 ## Criando um shapefile das coordenadas ----
