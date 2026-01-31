@@ -73,4 +73,16 @@ dis_geo
 
 ## Chuva ----
 
+### Calculando ----
+
+### Estatísticas ----
+
 ## Seca ----
+
+### Calculando ----
+
+### Estatísticas ----
+
+## Dataframe das estatísticas ----
+
+## Gráfico ----
