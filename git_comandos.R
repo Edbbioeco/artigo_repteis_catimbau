@@ -2,85 +2,40 @@
 
 library(gert)
 
-# Arquivos Públicos ----
-
-## Setando o branche main ----
-
-gert::git_branch_checkout("main")
-
-## Listando arquivos ----
+# Listando arquivos ----
 
 gert::git_status() |>
-  as.data.frame()
+  as.data.frame() |>
+  dplyr::filter(file |> stringr::str_detect(".R$"))
 
-## Adicionando arquivos ----
+# Adicionando arquivos ----
 
 gert::git_add(list.files(pattern = "git_comandos.R")) |>
   as.data.frame()
 
-## Commitando ----
+# Commitando ----
 
-gert::git_commit("Script para comandos de Git")
+gert::git_commit("Script para o modelo linear de diversidade beta")
 
-## Pushando -----
+# Pushando -----
 
-### Privado ----
+## Privado ----
 
 gert::git_push(remote = "privado", force = TRUE)
 
-### Público ----
+## Público ----
 
 gert::git_push(remote = "publico", force = TRUE)
 
-## Pullando ----
+# Pullando ----
 
-### Privado ----
+## Privado ----
 
 gert::git_pull(remote = "privado")
 
-### Público ----
+## Público ----
 
 gert::git_pull(remote = "publico")
-
-# Arquivos privados ----
-
-## Branche nova -----
-
-gert::git_branch_create("priv")
-
-gert::git_branch_checkout("priv")
-
-## Listando arquivos ----
-
-gert::git_status() |>
-  as.data.frame()
-
-## Adicionando arquivos ----
-
-gert::git_add(list.files(pattern = ".xlsx$")) |>
-  as.data.frame()
-
-## Commitando ----
-
-gert::git_commit("Base de dados")
-
-## Pushando -----
-
-gert::git_push(remote = "privado", force = TRUE)
-
-## Pullando ----
-
-gert::git_pull(remote = "privado")
-
-## Merging ----
-
-gert::git_branch_checkout("main")
-
-gert::git_merge("priv")
-
-gert::git_push(remote = "privado", force = TRUE)
-
-gert::git_pull(remote = "privado")
 
 # Resetando ----
 
