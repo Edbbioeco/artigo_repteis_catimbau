@@ -15,7 +15,7 @@ gert::git_add(list.files(pattern = "git_comandos.R")) |>
 
 # Commitando ----
 
-gert::git_commit("Script para comandos de git")
+gert::git_commit("Script para comandos de Git")
 
 # Pushando -----
 
@@ -47,7 +47,7 @@ gert::git_reset_mixed()
 
 ## Preparando os arquivos ----
 
-gert::git_rm(list.files(pattern = ".xls$.|.png$|.xlsx$"))
+gert::git_rm(list.files(pattern = ".xls$|.png$|.xlsx$"))
 
 ## Commitando ----
 
