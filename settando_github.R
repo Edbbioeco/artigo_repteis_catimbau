@@ -17,8 +17,17 @@ usethis::proj_get()
 
 # Informando o repositório ----
 
-usethis::use_git_remote(name = "artigo_lagartos",
-                        url = "https://github.com/Edbbioeco/artigo_repteis_catimbau.git")
+## Público ----
+
+usethis::use_git_remote(name = "publico",
+                        url = "https://github.com/Edbbioeco/artigo_repteis_catimbau.git",
+                        overwrite = TRUE)
+
+## Privado ----
+
+usethis::use_git_remote(name = "privado",
+                        url = "https://github.com/Edbbioeco/artigo_lgartos_catimbau_privado.git",
+                        overwrite = TRUE)
 
 # listando os remotes ----
 
