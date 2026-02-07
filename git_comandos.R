@@ -15,7 +15,7 @@ gert::git_add(list.files(pattern = "git_comandos.R")) |>
 
 # Commitando ----
 
-gert::git_commit("Script para o modelo linear de diversidade beta")
+gert::git_commit("Script para comandos de git")
 
 # Pushando -----
 
