@@ -15,7 +15,7 @@ gert::git_add(list.files(pattern = "git_comandos.R")) |>
 
 # Commitando ----
 
-gert::git_commit("Script para comandos de Git")
+gert::git_commit("Script para os comandos de Git")
 
 # Pushando -----
 
