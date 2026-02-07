@@ -10,12 +10,12 @@ gert::git_status() |>
 
 # Adicionando arquivos ----
 
-gert::git_add(list.files(pattern = "git_comandos.R")) |>
+gert::git_add(list.files(pattern = "var_macro.xls")) |>
   as.data.frame()
 
 # Commitando ----
 
-gert::git_commit("Script para os comandos de Git")
+gert::git_commit("Base de dados de variáveis macroambientais")
 
 # Pushando -----
 
