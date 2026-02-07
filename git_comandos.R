@@ -8,6 +8,12 @@ gert::git_status() |>
   as.data.frame() |>
   dplyr::filter(file |> stringr::str_detect(".R$"))
 
+# Limpando ----
+
+gert::git_reset_soft("HEAD~1")
+
+gert::git_reset_mixed()
+
 # Adicionando arquivos ----
 
 gert::git_add(list.files(pattern = "git_comandos.R")) |>
