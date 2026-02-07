@@ -49,7 +49,7 @@ gert::git_reset_soft("HEAD~1")
 
 gert::git_reset_mixed()
 
-# Removendo arquivos ----
+# Removendo arquivos do repositório público ----
 
 ## Preparando os arquivos ----
 
