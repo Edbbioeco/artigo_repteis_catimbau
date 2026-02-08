@@ -15,7 +15,7 @@ gert::git_add(list.files(pattern = "git_comandos.R")) |>
 
 # Commitando ----
 
-gert::git_commit("🧑‍💻")
+gert::git_commit("🧑‍💻Script dos comandos de Git")
 
 # Pushando -----
 
@@ -39,7 +39,7 @@ gert::git_pull(remote = "publico")
 
 # Resetando ----
 
-gert::git_reset_soft("HEAD~1")
+gert::git_reset_soft("HEAD~30")
 
 gert::git_reset_mixed()
 
