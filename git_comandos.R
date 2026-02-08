@@ -21,11 +21,11 @@ gert::git_commit("🧑‍💻Script dos comandos de Git")
 
 ## Privado ----
 
-gert::git_push(remote = "privado")
+gert::git_push(remote = "privado", force = TRUE)
 
 ## Público ----
 
-gert::git_push(remote = "publico")
+gert::git_push(remote = "publico", force = TRUE)
 
 # Pullando ----
 
