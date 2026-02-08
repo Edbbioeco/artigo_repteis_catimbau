@@ -8,12 +8,6 @@ gert::git_status() |>
   as.data.frame() |>
   dplyr::filter(file |> stringr::str_detect(".R$"))
 
-# Limpando ----
-
-gert::git_reset_soft("HEAD~1")
-
-gert::git_reset_mixed()
-
 # Adicionando arquivos ----
 
 gert::git_add(list.files(pattern = "git_comandos.R")) |>
@@ -21,17 +15,17 @@ gert::git_add(list.files(pattern = "git_comandos.R")) |>
 
 # Commitando ----
 
-gert::git_commit("Script para os comandos de Git")
+gert::git_commit("🧑‍💻")
 
 # Pushando -----
 
 ## Privado ----
 
-gert::git_push(remote = "privado", force = TRUE)
+gert::git_push(remote = "privado")
 
 ## Público ----
 
-gert::git_push(remote = "publico", force = TRUE)
+gert::git_push(remote = "publico")
 
 # Pullando ----
 
@@ -49,7 +43,7 @@ gert::git_reset_soft("HEAD~1")
 
 gert::git_reset_mixed()
 
-# Removendo arquivos ----
+# Removendo arquivos do repositório público ----
 
 ## Preparando os arquivos ----
 
