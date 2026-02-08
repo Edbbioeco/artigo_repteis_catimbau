@@ -5,7 +5,8 @@ library(gert)
 # Listando arquivos ----
 
 gert::git_status() |>
-  as.data.frame()
+  as.data.frame() |>
+  dplyr::filter(file |> stringr::str_detect(".R$"))
 
 # Adicionando arquivos ----
 
@@ -14,18 +15,48 @@ gert::git_add(list.files(pattern = "git_comandos.R")) |>
 
 # Commitando ----
 
-gert::git_commit("Script para os comandops de Git")
+gert::git_commit("🧑‍💻Script dos comandos de Git")
 
 # Pushando -----
 
-gert::git_push(remote = "artigo_lagartos", force = TRUE)
+## Privado ----
+
+gert::git_push(remote = "privado", force = TRUE)
+
+## Público ----
+
+gert::git_push(remote = "publico", force = TRUE)
 
 # Pullando ----
 
-gert::git_pull(remote = "artigo_lagartos")
+## Privado ----
+
+gert::git_pull(remote = "privado")
+
+## Público ----
+
+gert::git_pull(remote = "publico")
 
 # Resetando ----
 
+gert::git_reset_soft("HEAD~30")
+
 gert::git_reset_mixed()
 
-gert::git_reset_soft("HEAD^")
+# Removendo arquivos do repositório público ----
+
+## Preparando os arquivos ----
+
+gert::git_rm(list.files(pattern = ".xls$|.png$|.xlsx$"))
+
+## Commitando ----
+
+gert::git_commit("Removendo")
+
+## Pushando ----
+
+gert::git_push(remote = "publico", force = TRUE)
+
+## Pullando ----
+
+gert::git_pull(remote = "publico")
