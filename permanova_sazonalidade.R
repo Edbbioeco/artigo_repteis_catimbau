@@ -108,15 +108,14 @@ scores_nmds |>
                         size = 10,
                         label.colour = NA,
                         fill = NA) +
-  theme_bw() +
+  theme_classic() +
   theme(axis.text = element_text(color = "black", size = 20),
         axis.title = element_text(color = "black", size = 20),
         strip.text = element_text(color = "black", size = 25),
         strip.background = element_rect(color = "black", linewidth = 1),
         legend.position = "bottom",
         legend.text = element_text(color = "black", size = 20),
-        legend.title = element_text(color = "black", size = 20),
-        panel.background = element_rect(color = "black", linewidth = 1)) +
+        legend.title = element_text(color = "black", size = 20)) +
   ggview::canvas(height = 10, width = 12)
 
 ggsave(filename = "grafico_nmds.png",
