@@ -41,7 +41,7 @@ curva_df <- purrr::imap_dfr(chao_curva,
                               dplyr::mutate(tipo = .y)) |>
   dplyr::mutate(tipo = dplyr::case_when(
 
-    ipo |> stringr::str_detect("S") ~ "Observed",
+    tipo |> stringr::str_detect("S") ~ "Observed",
     .default = "Estimated (Chao1)"
 
     ),
@@ -56,10 +56,10 @@ curva_df |>
   ggplot(aes(N, Richness, color = tipo, fill = tipo)) +
   geom_line(linewidth = 1) +
   geom_point(size = 5, shape = 21, color = "black", stroke = 1) +
-  scale_y_continuous(breaks = seq(1, 16, 1),
-                     limits = c(1, 16)) +
-  scale_x_continuous(breaks = seq(1, 6, 1),
-                     limits = c(1, 6)) +
+  scale_y_continuous(breaks = seq(1, 21, 1),
+                     limits = c(1, 21)) +
+  scale_x_continuous(breaks = seq(1, 12, 1),
+                     limits = c(1, 12)) +
   scale_color_manual(values = c("royalblue", 'orange')) +
   scale_fill_manual(values = c("royalblue", 'orange')) +
   labs(fill = NULL,
