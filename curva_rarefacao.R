@@ -65,11 +65,9 @@ curva_df |>
   labs(fill = NULL,
        color = NULL,
        x = "Number of samples") +
-  theme_bw() +
+  theme_classic() +
   theme(axis.text = element_text(color = "black", size = 20),
         axis.title = element_text(color = "black", size = 20),
-        strip.text = element_text(color = "black", size = 25),
-        strip.background = element_rect(color = "black", linewidth = 1),
         legend.position = "bottom",
         legend.text = element_text(color = "black", size = 20),
         legend.title = element_text(color = "black", size = 20)) +
