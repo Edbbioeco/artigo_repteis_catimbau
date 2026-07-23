@@ -25,10 +25,9 @@ comp |> dplyr::glimpse()
 ## Calculando ----
 
 ace_curva <- comp |>
-  dplyr::filter(Parcela |> stringr::str_detect("chuva")) |>
   tibble::column_to_rownames(var = "Parcela") |>
   vegan::estaccumR(permutations = 1000) |>
-  summary(display = c("S", "ace"))
+  summary(display = c("S", "chao"))
 
 ace_curva
 
