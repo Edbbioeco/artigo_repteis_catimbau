@@ -33,14 +33,20 @@ chao_curva
 
 ## Criando um data frame ----
 
-curva_df <- ace_curva$S |>
-  as.data.frame() |>
-  dplyr::mutate(tipo = "Observed") |>
-  dplyr::rename("Richness" = 2) |>
-  dplyr::bind_rows(ace_curva$ace |>
-                     as.data.frame() |>
-                     dplyr::mutate(tipo = "Estimated") |>
-                     dplyr::rename("Richness" = 2))
+curva_df <- purrr::imap_dfr(chao_curva,
+                            ~.x |>
+                              as.data.frame() |>
+                              dplyr::select(1:2) |>
+                              dplyr::rename("Richness" = 2) |>
+                              dplyr::mutate(tipo = .y)) |>
+  dplyr::mutate(tipo = dplyr::case_when(
+
+    ipo |> stringr::str_detect("S") ~ "Observed",
+    .default = "Estimated (Chao1)"
+
+    ),
+                tipo = tipo |> forcats::fct_relevel(c("Observed",
+                                                      "Estimated (Chao1)")))
 
 curva_df
 
