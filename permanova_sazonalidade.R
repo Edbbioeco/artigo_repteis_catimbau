@@ -18,7 +18,7 @@ library(ggview)
 
 ## Importando ----
 
-comp <- readxl::read_xls("composicao.xls")
+comp <- readxl::read_xlsx("composicao.xlsx")
 
 ## Visualizando -----
 
