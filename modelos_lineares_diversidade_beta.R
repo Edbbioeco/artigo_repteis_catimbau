@@ -63,11 +63,10 @@ var_macro |> dplyr::glimpse()
 ## Dissimilaridade de composição ----
 
 dis_comp <- comp |>
-  #dplyr::mutate(Parcela = Parcela |> stringr::str_remove_all("_chuva|_seca")) |>
-  #dplyr::summarise(dplyr::across(.cols = dplyr::where(is.numeric),
-                                #.fns = ~max(.)),
-                  #.by = Parcela) |>
-  dplyr::filter(Parcela |> stringr::str_detect("chuva")) |>
+  dplyr::mutate(Parcela = Parcela |> stringr::str_sub(1, 3)) |>
+  dplyr::summarise(dplyr::across(.cols = dplyr::where(is.numeric),
+                                 .fns = ~max(.)),
+                   .by = Parcela) |>
   tibble::column_to_rownames(var = "Parcela") |>
   vegan::vegdist(method = "bray") |>
   as.numeric()
