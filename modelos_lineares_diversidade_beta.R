@@ -50,7 +50,7 @@ var_micro |> dplyr::glimpse()
 
 ### Importando ----
 
-var_macro <- readxl::read_xls("var_macro.xls")
+var_macro <- readxl::read_xls("variaveis.amb.xls")
 
 ### Visualizando -----
 
