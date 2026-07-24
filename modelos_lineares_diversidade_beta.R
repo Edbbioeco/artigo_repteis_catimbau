@@ -87,36 +87,29 @@ df_var <- var_micro |>
 
 df_var
 
-amb_dis <- function(nome_var){
-
-  dissim_amb <- df_var |>
-    #dplyr::mutate(Parcela = Parcela |> stringr::str_remove_all("_Chuvosa|_Seca")) |>
-    #dplyr::summarise(dplyr::across(.cols = dplyr::where(is.numeric),
-                                   #.fns = ~max(.)),
-                     #.by = Parcela) |>
-    dplyr::filter(Parcela |> stringr::str_detect("Chuvosa")) |>
-    dplyr::select(nome_var) |>
-    vegan::vegdist(method = "euclidean") |>
-    as.numeric()
-
-  assign(paste0("dis_", nome_var),
-         dissim_amb,
-         envir = globalenv())
-
-}
-
 nome_var <- df_var |>
   dplyr::select(dplyr::where(is.numeric)) |>
   names()
 
 nome_var
 
-purrr::map(nome_var, amb_dis)
+df_dis <- purrr::map(nome_var,
+                     purrr::in_parallel(
 
-## Unindo os dados ----
+             ~df_var |>
+                 dplyr::mutate(Parcela = Parcela |> stringr::str_sub(-3, -1)) |>
+                 dplyr::summarise(
 
-df_dis <- ls(pattern = "dis_") |>
-  mget(envir = globalenv()) |>
+                   dplyr::across(.cols = dplyr::where(is.numeric),
+                                 .fns = ~max(.)),
+                   .by = Parcela) |>
+                 dplyr::select(.x) |>
+                 vegan::vegdist(method = "euclidean") |>
+                 as.numeric()
+
+             ),
+           .progress = TRUE) |>
+  setNames(nome_var) |>
   dplyr::bind_cols()
 
 df_dis
