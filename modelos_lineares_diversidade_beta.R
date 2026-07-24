@@ -38,7 +38,7 @@ comp |> dplyr::glimpse()
 
 ### Importando ----
 
-var_micro <- readxl::read_xls("var_micro.xls")
+var_micro <- readxl::read_xls("variaveis.micro.xls")
 
 ### Visualizando -----
 
