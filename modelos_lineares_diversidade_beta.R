@@ -77,7 +77,12 @@ dis_comp
 
 df_var <- var_micro |>
   dplyr::select(1:3) |>
-  dplyr::left_join(var_macro,
+    dplyr::left_join(var_macro |>
+                       dplyr::mutate(Parcela = paste0(rep(c("CHUVA_",
+                                                            "SECA_"),
+                                                          each = 6),
+                                                      Parcela) |>
+                                       stringr::str_remove_all("_Chuvosa|_Seca")),
                    by = "Parcela")
 
 df_var
