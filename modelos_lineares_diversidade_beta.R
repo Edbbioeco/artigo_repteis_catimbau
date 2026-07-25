@@ -125,7 +125,7 @@ cor_multipla <- df_dis |>
   dplyr::rename("Temperature" = 3,
                 "Leaf-litter" = 1,
                 "Canopy" = 2,
-                "Altitude" = 4,
+                "Elevation" = 4,
                 "Humidity" = 5) |>
   dplyr::select(!dplyr::contains("comp")) |>
   cor(method = "spearman") |>
