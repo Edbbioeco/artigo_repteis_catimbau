@@ -211,18 +211,15 @@ modelos
 
 ### Pressupostos dos modelos ----
 
-pressupostos_mdelo <- function(modelo){
+purrr::imap(modelos,
+            purrr::in_parallel(
 
-  pressuposto <- modelo |> DHARMa::simulateResiduals(plot = TRUE)
+              ~.x |>
+                DHARMa::simulateResiduals(plot = TRUE) |>
+                plot(title = .y)
 
-  print(pressuposto)
-
-}
-
-modelo <- ls(pattern = "modelo_") |>
-  mget(envir = globalenv())
-
-purrr::map(modelo, pressupostos_mdelo)
+             ),
+           .progress = TRUE)
 
 ### Estatísticas dos modelos ----
 
