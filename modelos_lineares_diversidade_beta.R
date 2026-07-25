@@ -96,12 +96,7 @@ df_dis <- purrr::map(nome_var,
                      purrr::in_parallel(
 
              ~df_var |>
-                 dplyr::mutate(Parcela = Parcela |> stringr::str_sub(-3, -1)) |>
-                 dplyr::summarise(
-
-                   dplyr::across(.cols = dplyr::where(is.numeric),
-                                 .fns = ~mean(.)),
-                   .by = Parcela) |>
+                 dplyr::filter(Parcela |> stringr::str_detect("CHUVA")) |>
                  dplyr::select(.x) |>
                  vegan::vegdist(method = "euclidean") |>
                  as.numeric()
