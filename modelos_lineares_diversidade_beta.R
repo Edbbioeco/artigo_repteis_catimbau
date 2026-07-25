@@ -223,21 +223,20 @@ purrr::imap(modelos,
 
 ### Estatísticas dos modelos ----
 
-sts_modelo <- function(modelo, var){
+purrr::imap_dfr(
+  modelos,
+  purrr::in_parallel(
 
-  sumario <- modelo |>
-    summary()
+              ~.x |>
+                summary() %>%
+                .$coefficients %>%
+                .$cond |>
+                as.data.frame() |>
+                dplyr::mutate(Preditor = .y,
+                              .before = 1)
 
-  assign(paste0("sumario_", var),
-         sumario,
-         envir = globalenv())
-
-}
-
-purrr::map2(modelo, var, sts_modelo)
-
-ls(pattern = "sumario_") |>
-  mget(envir = globalenv())
+            ),
+  .progress = TRUE)
 
 ## Modelo único ----
 
