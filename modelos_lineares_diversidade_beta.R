@@ -84,7 +84,8 @@ df_var <- var_micro |>
                                                       Parcela) |>
                                        stringr::str_remove_all("_Chuvosa|_Seca")),
                    by = "Parcela") |>
-  dplyr::rename("Elevação" = Altitude)
+  dplyr::rename("Elevação" = Altitude,
+                "Folhiço" = Folico)
 
 df_var
 
@@ -243,7 +244,7 @@ purrr::imap_dfr(
 
 ### Criando o modelo ----
 
-modelounico <- glmmTMB::glmmTMB(comp ~ Altitude +
+modelounico <- glmmTMB::glmmTMB(comp ~ Elevação +
                                    Dossel +
                                    Folhiço +
                                    Temperatura +
