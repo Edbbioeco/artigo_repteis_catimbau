@@ -199,7 +199,8 @@ var
 modelos <- purrr::map(var,
                       purrr::in_parallel(
 
-                        ~glmmTMB::glmmTMB(Comp ~ df_dis[[.x]],
+                        ~glmmTMB::glmmTMB(paste0("Comp ~ ", .x) |>
+                                            as.formula(),
                                           data = df_dis,
                                           family = glmmTMB::beta_family())
 
