@@ -188,17 +188,8 @@ ggsave(filename = "multicolinearidade.png",
 
 ### Nome das variáveis ----
 
-nomes_var <- df_dis |>
-  names() |>
-  stringr::str_replace_all("_", " ") |>
-  stringr::word(2)
-
-nomes_var
-
-names(df_dis) <- nomes_var
-
 var <- df_dis |>
-  dplyr::select(-comp) |>
+  dplyr::select(-Comp) |>
   names()
 
 var
