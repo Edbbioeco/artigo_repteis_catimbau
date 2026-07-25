@@ -196,22 +196,17 @@ var
 
 ### Criando os modelos ----
 
-criar_modelos <- function(var){
+modelos <- purrr::map(var,
+                      purrr::in_parallel(
 
-  modelo <- glmmTMB::glmmTMB(comp ~ Altitude,
-                             data = df_dis,
-                             family = glmmTMB::beta_family())
+                        ~glmmTMB::glmmTMB(Comp ~ df_dis[[.x]],
+                                          data = df_dis,
+                                          family = glmmTMB::beta_family())
 
-  assign(paste0("modelo_", var),
-         modelo,
-         envir = globalenv())
+                      ),
+                      .progress = TRUE)
 
-}
-
-purrr::map(var, criar_modelos)
-
-ls(pattern = "modelo_") |>
-  mget(envir = globalenv())
+modelos
 
 ### Pressupostos dos modelos ----
 
