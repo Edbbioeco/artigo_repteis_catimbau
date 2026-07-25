@@ -123,7 +123,7 @@ cor_multipla <- df_dis |>
                 "Canopy" = 2,
                 "Elevation" = 4,
                 "Humidity" = 5) |>
-  dplyr::select(!dplyr::contains("comp")) |>
+  dplyr::select(!dplyr::contains("Comp")) |>
   cor(method = "spearman") |>
   as.matrix()
 
@@ -295,11 +295,11 @@ df_sts
 ### Gráfico ----
 
 df_dis |>
-  dplyr::rename("Altitude" = 1,
-                "Canopy openness" = 3,
-                "Leaf litter volumn" = 4,
-                "Temperature" = 5,
-                "Humidity" = 6) |>
+  dplyr::rename("Elevation" = 4,
+                "Canopy openness" = 2,
+                "Leaf litter volumn" = 1,
+                "Temperature" = 3,
+                "Humidity" = 5) |>
   tidyr::pivot_longer(cols = c(1, 3:6),
                       names_to = "variavel",
                       values_to = "dissimilaridade") |>
