@@ -82,7 +82,8 @@ df_var <- var_micro |>
                                        stringr::str_remove_all("_Chuvosa|_Seca")),
                    by = "Parcela") |>
   dplyr::rename("Elevação" = Altitude,
-                "Folhiço" = Folico)
+                "Folhiço" = Folico) |>
+  dplyr::arrange(Parcela)
 
 df_var
 
