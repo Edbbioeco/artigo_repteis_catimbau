@@ -110,7 +110,8 @@ df_dis <- purrr::map(nome_var,
              ),
            .progress = TRUE) |>
   setNames(nome_var) |>
-  dplyr::bind_cols()
+  dplyr::bind_cols() |>
+  dplyr::mutate(Comp = dis_comp)
 
 df_dis
 
