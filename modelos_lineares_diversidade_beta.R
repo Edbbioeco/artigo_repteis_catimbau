@@ -141,8 +141,8 @@ cor_multipla
 cor_df <- cor_multipla |>
   reshape2::melt() |>
   dplyr::mutate(value = value |> round(2)) |>
-  dplyr::filter(!value |> is.na() & igual == "não") |>
-  dplyr::select(-igual) |>
+  dplyr::filter(!value |> is.na() &
+                  Var1 != Var2) |>
   dplyr::rename("Spearman Correlation Index" = value)
 
 cor_df
