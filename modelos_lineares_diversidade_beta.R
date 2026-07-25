@@ -63,6 +63,7 @@ var_macro |> dplyr::glimpse()
 ## Dissimilaridade de composição ----
 
 dis_comp <- comp |>
+  dplyr::arrange(Parcela) |>
   dplyr::filter(Parcela |> stringr::str_detect("chuva")) |>
   tibble::column_to_rownames(var = "Parcela") |>
   vegan::vegdist(method = "bray") |>
