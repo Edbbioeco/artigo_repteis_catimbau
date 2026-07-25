@@ -63,10 +63,7 @@ var_macro |> dplyr::glimpse()
 ## Dissimilaridade de composição ----
 
 dis_comp <- comp |>
-  dplyr::mutate(Parcela = Parcela |> stringr::str_sub(1, 3)) |>
-  dplyr::summarise(dplyr::across(.cols = dplyr::where(is.numeric),
-                                 .fns = ~max(.)),
-                   .by = Parcela) |>
+  dplyr::filter(Parcela |> stringr::str_detect("chuva")) |>
   tibble::column_to_rownames(var = "Parcela") |>
   vegan::vegdist(method = "bray") |>
   as.numeric()
@@ -103,7 +100,7 @@ df_dis <- purrr::map(nome_var,
                  dplyr::summarise(
 
                    dplyr::across(.cols = dplyr::where(is.numeric),
-                                 .fns = ~max(.)),
+                                 .fns = ~mean(.)),
                    .by = Parcela) |>
                  dplyr::select(.x) |>
                  vegan::vegdist(method = "euclidean") |>
@@ -244,7 +241,7 @@ purrr::imap_dfr(
 
 ### Criando o modelo ----
 
-modelounico <- glmmTMB::glmmTMB(comp ~ Elevação +
+modelounico <- glmmTMB::glmmTMB(Comp ~ Elevação +
                                    Dossel +
                                    Folhiço +
                                    Temperatura +
