@@ -121,11 +121,11 @@ df_dis |> dplyr::glimpse()
 ## Calculando a correlação múltipla ----
 
 cor_multipla <- df_dis |>
-  dplyr::rename("Temperature" = dis_Temperatura,
-                "Leaf-litter" = dis_Folhiço,
-                "Canopy" = dis_Dossel,
-                "Altitude" = dis_Altitude,
-                "Humidity" = dis_Umidade) |>
+  dplyr::rename("Temperature" = 3,
+                "Leaf-litter" = 1,
+                "Canopy" = 2,
+                "Altitude" = 4,
+                "Humidity" = 5) |>
   dplyr::select(!dplyr::contains("comp")) |>
   cor(method = "spearman") |>
   as.matrix()
