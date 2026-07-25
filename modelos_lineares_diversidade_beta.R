@@ -204,7 +204,8 @@ modelos <- purrr::map(var,
                                           family = glmmTMB::beta_family())
 
                       ),
-                      .progress = TRUE)
+                      .progress = TRUE) |>
+  setNames(var)
 
 modelos
 
